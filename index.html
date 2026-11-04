@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LibraSpace | Library Seat & Resource Booking</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#home">
+        <span class="brand-mark">L</span>
+        <span>Libra<span class="brand-light">Space</span></span>
+      </a>
+
+      <div class="side-label">WORKSPACE</div>
+      <nav class="side-nav">
+        <a href="#home" class="nav-link active" data-page="home"><span>⌂</span> Overview</a>
+        <a href="#book" class="nav-link" data-page="book"><span>▦</span> Book a Seat</a>
+        <a href="#resources" class="nav-link" data-page="resources"><span>▤</span> Resources</a>
+        <a href="#mybookings" class="nav-link" data-page="mybookings"><span>◷</span> My Bookings <b id="bookingBadge">0</b></a>
+        <a href="#history" class="nav-link" data-page="history"><span>↻</span> Booking History</a>
+      </nav>
+
+      <div class="side-label admin-label">MANAGEMENT</div>
+      <nav class="side-nav">
+        <a href="#admin" class="nav-link" data-page="admin"><span>▥</span> Admin Dashboard</a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="help-card">
+          <div class="help-icon">✦</div>
+          <strong>Need a quiet place?</strong>
+          <p>Find your perfect study spot in just a few clicks.</p>
+          <a href="#book" data-goto="book">Explore seats <span>→</span></a>
+        </div>
+
+        <div class="profile-mini">
+          <div class="avatar" id="miniAvatar">S</div>
+          <div class="profile-copy">
+            <strong id="miniName">Student User</strong>
+            <small id="miniId">Student account</small>
+          </div>
+          <button id="logoutBtn" title="Sign out">↗</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" id="menuBtn" aria-label="Open menu">☰</button>
+        <div class="breadcrumb">Library / <strong id="crumb">Overview</strong></div>
+
+        <div class="top-actions">
+          <button class="icon-button" id="notificationBtn" aria-label="Notifications">♧<i class="notification-dot"></i></button>
+          <div class="top-user">
+            <div class="avatar small" id="topAvatar">S</div>
+            <div>
+              <strong id="topName">Student User</strong>
+              <small>Student</small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- HOME PAGE -->
+      <section class="page active" id="page-home">
+        <div class="welcome-row">
+          <div>
+            <div class="eyebrow">LIBRARY DASHBOARD</div>
+            <h1>Your space to <span>focus.</span></h1>
+            <p class="muted">A better study session starts with the right place.</p>
+          </div>
+          <button class="primary-btn" data-goto="book">＋ Book a seat</button>
+        </div>
+
+        <div class="hero-panel">
+          <div class="hero-copy">
+            <span class="pill pill-light">LIBRARY, MADE SIMPLE</span>
+            <h2>Find your focus.<br>Reserve your space.</h2>
+            <p>Choose a seat, pick a time, and let us take care of the rest.</p>
+            <button class="white-btn" data-goto="book">Find a seat <span>→</span></button>
+          </div>
+
+          <div class="hero-art">
+            <div class="art-circle circle-one"></div>
+            <div class="art-circle circle-two"></div>
+            <div class="desk">
+              <div class="desk-book"></div>
+              <div class="desk-lamp"></div>
+              <div class="desk-plant">♧</div>
+            </div>
+            <div class="art-note">FOCUS MODE <span>ON</span></div>
+          </div>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <h2>Your library at a glance</h2>
+            <p class="muted">Live availability across the library</p>
+          </div>
+          <span class="live-label"><i></i> Updated just now</span>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-top"><span>Available seats</span><span class="stat-icon mint">▦</span></div>
+            <strong id="statAvailable">--</strong>
+            <small>Ready for your next session</small>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span>Currently booked</span><span class="stat-icon lavender">◷</span></div>
+            <strong id="statBooked">--</strong>
+            <small>Across all floors</small>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span>My active bookings</span><span class="stat-icon peach">▣</span></div>
+            <strong id="statMine">0</strong>
+            <small>Your upcoming sessions</small>
+          </div>
+          <div class="stat-card">
+            <div class="stat-top"><span>Library resources</span><span class="stat-icon blue">▤</span></div>
+            <strong id="statResources">--</strong>
+            <small>Rooms and study spaces</small>
+          </div>
+        </div>
+
+        <div class="home-grid">
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Quick booking</h3>
+                <p class="muted">Reserve your preferred study area</p>
+              </div>
+              <span class="panel-symbol">↗</span>
+            </div>
+
+            <div class="quick-options">
+              <button class="quick-option" data-goto="book">
+                <span class="quick-icon mint">▦</span>
+                <span><b>Individual seat</b><small>Quiet, personal study space</small></span>
+                <span class="arrow">→</span>
+              </button>
+              <button class="quick-option" data-goto="resources">
+                <span class="quick-icon lavender">▤</span>
+                <span><b>Reading room</b><small>Private or group study rooms</small></span>
+                <span class="arrow">→</span>
+              </button>
+              <button class="quick-option" data-goto="resources">
+                <span class="quick-icon peach">▣</span>
+                <span><b>Study resources</b><small>Reserve equipment and more</small></span>
+                <span class="arrow">→</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Booking guide</h3>
+                <p class="muted">Three easy steps</p>
+              </div>
+            </div>
+
+            <div class="guide-list">
+              <div class="guide-item"><span>01</span><div><b>Choose a location</b><small>Select a floor and study zone.</small></div></div>
+              <div class="guide-item"><span>02</span><div><b>Pick your seat & time</b><small>Check availability on the seat map.</small></div></div>
+              <div class="guide-item"><span>03</span><div><b>Confirm your booking</b><small>Your seat is reserved for your slot.</small></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel upcoming-panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Your next session</h3>
+              <p class="muted">Your nearest upcoming reservation</p>
+            </div>
+            <a href="#mybookings" data-goto="mybookings" class="text-link">View all →</a>
+          </div>
+          <div id="nextBooking" class="empty-inline">
+            No upcoming bookings yet.
+            <a href="#book" data-goto="book">Book a seat</a> to get started.
+          </div>
+        </div>
+      </section>
+
+      <!-- SEAT BOOKING PAGE -->
+      <section class="page" id="page-book">
+        <div class="page-title-row">
+          <div>
+            <div class="eyebrow">SEAT RESERVATION</div>
+            <h1>Book your <span>seat.</span></h1>
+            <p class="muted">Choose your preferred floor, zone and time slot.</p>
+          </div>
+          <span class="pill">STEP 1 OF 2</span>
+        </div>
+
+        <div class="booking-layout">
+          <div class="panel booking-controls">
+            <h3>Find your study spot</h3>
+            <p class="muted">Set your preferences to see available seats.</p>
+
+            <label for="floorSelect">Library floor</label>
+            <select id="floorSelect">
+              <option value="Ground Floor">Ground Floor</option>
+              <option value="First Floor">First Floor</option>
+              <option value="Second Floor">Second Floor</option>
+            </select>
+
+            <label for="zoneSelect">Study zone</label>
+            <select id="zoneSelect">
+              <option value="Silent Zone">Silent Zone</option>
+              <option value="General Zone">General Zone</option>
+              <option value="Window Zone">Window Zone</option>
+            </select>
+
+            <label for="dateSelect">Booking date</label>
+            <input type="date" id="dateSelect">
+
+            <label for="slotSelect">Time slot</label>
+            <select id="slotSelect">
+              <option value="09:00 - 11:00">09:00 AM – 11:00 AM</option>
+              <option value="11:00 - 13:00">11:00 AM – 01:00 PM</option>
+              <option value="13:00 - 15:00">01:00 PM – 03:00 PM</option>
+              <option value="15:00 - 17:00">03:00 PM – 05:00 PM</option>
+              <option value="17:00 - 19:00">05:00 PM – 07:00 PM</option>
+            </select>
+
+            <div class="selection-summary">
+              <span>Selected seat</span>
+              <strong id="selectedSeatLabel">None selected</strong>
+            </div>
+
+            <button class="primary-btn full-btn" id="confirmSeatBtn" disabled>
+              Confirm seat booking <span>→</span>
+            </button>
+            <p class="tiny-note">Bookings are held for the selected time slot. Please arrive on time.</p>
+          </div>
+
+          <div class="panel seat-panel">
+            <div class="seat-panel-top">
+              <div>
+                <h3>Visual seat map</h3>
+                <p class="muted" id="mapSubtitle">Ground Floor · Silent Zone</p>
+              </div>
+              <span class="availability-count" id="seatCount">Loading seats</span>
+            </div>
+
+            <div class="seat-legend">
+              <span><i class="legend-dot available"></i> Available</span>
+              <span><i class="legend-dot selected"></i> Selected</span>
+              <span><i class="legend-dot booked"></i> Booked</span>
+              <span><i class="legend-dot occupied"></i> Occupied</span>
+            </div>
+
+            <div class="map-frame">
+              <div class="map-window">WINDOWS</div>
+              <div class="seat-grid" id="seatGrid"></div>
+              <div class="map-front">
+                <span>← Entrance</span><span>STUDY AREA</span><span>Help desk →</span>
+              </div>
+            </div>
+            <div class="map-footnote">Select any available seat to view its status and reserve it.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESOURCES PAGE -->
+      <section class="page" id="page-resources">
+        <div class="page-title-row">
+          <div>
+            <div class="eyebrow">BEYOND THE DESK</div>
+            <h1>Explore <span>resources.</span></h1>
+            <p class="muted">Reserve a room or useful library equipment.</p>
+          </div>
+        </div>
+        <div class="resource-grid" id="resourceGrid"></div>
+      </section>
+
+      <!-- MY BOOKINGS PAGE -->
+      <section class="page" id="page-mybookings">
+        <div class="page-title-row">
+          <div>
+            <div class="eyebrow">YOUR SCHEDULE</div>
+            <h1>My <span>bookings.</span></h1>
+            <p class="muted">Keep track of your upcoming library sessions.</p>
+          </div>
+          <button class="primary-btn" data-goto="book">＋ New booking</button>
+        </div>
+
+        <div class="filter-row">
+          <button class="filter-chip active" data-filter="all">All active</button>
+          <button class="filter-chip" data-filter="seat">Seats</button>
+          <button class="filter-chip" data-filter="resource">Resources</button>
+        </div>
+        <div id="myBookingsList" class="booking-list"></div>
+      </section>
+
+      <!-- HISTORY PAGE -->
+      <section class="page" id="page-history">
+        <div class="page-title-row">
+          <div>
+            <div class="eyebrow">YOUR ACTIVITY</div>
+            <h1>Booking <span>history.</span></h1>
+            <p class="muted">A record of your past and cancelled reservations.</p>
+          </div>
+        </div>
+
+        <div class="panel table-panel">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>BOOKING</th><th>DATE</th><th>TIME</th><th>STATUS</th></tr>
+              </thead>
+              <tbody id="historyTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADMIN PAGE -->
+      <section class="page" id="page-admin">
+        <div class="page-title-row">
+          <div>
+            <div class="eyebrow">LIBRARY MANAGEMENT</div>
+            <h1>Admin <span>dashboard.</span></h1>
+            <p class="muted">Monitor reservations and manage library availability.</p>
+          </div>
+          <span class="pill pill-admin">DEMO ADMIN VIEW</span>
+        </div>
+
+        <div class="stats-grid admin-stats">
+          <div class="stat-card"><div class="stat-top"><span>Total reservations</span><span class="stat-icon lavender">▤</span></div><strong id="adminTotal">0</strong><small>All recorded bookings</small></div>
+          <div class="stat-card"><div class="stat-top"><span>Active reservations</span><span class="stat-icon mint">◷</span></div><strong id="adminActive">0</strong><small>Currently active or upcoming</small></div>
+          <div class="stat-card"><div class="stat-top"><span>Cancelled / expired</span><span class="stat-icon peach">↻</span></div><strong id="adminClosed">0</strong><small>Closed reservations</small></div>
+          <div class="stat-card"><div class="stat-top"><span>Seat capacity</span><span class="stat-icon blue">▦</span></div><strong>72</strong><small>Across three floors</small></div>
+        </div>
+
+        <div class="panel table-panel">
+          <div class="panel-heading">
+            <div>
+              <h3>All reservations</h3>
+              <p class="muted">Bookings saved in this browser</p>
+            </div>
+            <button class="outline-btn" id="exportBtn">↓ Export CSV</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>STUDENT</th><th>RESOURCE</th><th>DATE</th><th>TIME</th><th>STATUS</th><th>ACTION</th></tr>
+              </thead>
+              <tbody id="adminTable"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel admin-tools">
+          <div>
+            <h3>Seat availability controls</h3>
+            <p class="muted">Demo controls for testing the seat map.</p>
+          </div>
+          <div class="admin-control-row">
+            <label for="adminFloor">Floor</label>
+            <select id="adminFloor">
+              <option>Ground Floor</option>
+              <option>First Floor</option>
+              <option>Second Floor</option>
+            </select>
+            <label for="adminSeat">Seat</label>
+            <select id="adminSeat"></select>
+            <button class="outline-btn" id="toggleSeatBtn">Toggle occupied status</button>
+          </div>
+          <p class="tiny-note">Occupied status is simulated and stored locally. A production system should restrict these controls to verified administrators.</p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>© 2026 LibraSpace Library System</span>
+        <span>Study smarter. Find your space.</span>
+      </footer>
+    </main>
+  </div>
+
+  <!-- STUDENT LOGIN MODAL -->
+  <div class="modal-backdrop" id="loginModal">
+    <div class="modal login-modal">
+      <div class="modal-brand">
+        <span class="brand-mark">L</span>
+        <span>Libra<span class="brand-light">Space</span></span>
+      </div>
+      <div class="eyebrow">WELCOME TO YOUR LIBRARY</div>
+      <h2>Make room for<br><span>great ideas.</span></h2>
+      <p class="muted">Sign in to reserve your study space.</p>
+
+      <form id="loginForm">
+        <label for="studentName">Student name</label>
+        <input id="studentName" placeholder="e.g. Aarav Sharma" required>
+        <label for="studentId">Student ID</label>
+        <input id="studentId" placeholder="e.g. 12400123" required>
+        <button class="primary-btn full-btn">Continue to library →</button>
+      </form>
+      <p class="tiny-note">Demo login only. No password or real account verification is used.</p>
+    </div>
+  </div>
+
+  <!-- RESOURCE BOOKING MODAL -->
+  <div class="modal-backdrop" id="detailModal">
+    <div class="modal detail-modal">
+      <button class="modal-close" id="closeDetail">×</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- NOTIFICATIONS -->
+  <div class="notification-popover hidden" id="notificationPopover">
+    <div class="panel-heading">
+      <h3>Notifications</h3>
+      <button id="clearNotifications" class="text-link">Clear</button>
+    </div>
+    <div id="notificationList"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
